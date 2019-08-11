@@ -1,0 +1,135 @@
+{
+  "Tektoncd Task": {
+    "prefix": ["task", "tekton-task", "t"],
+    "body": [
+      "apiVersion: tekton.dev/v1alpha1",
+      "kind: Task",
+      "metadata:",
+      "  name: ${1:echo-hello-world}",
+      "spec:",
+      "  steps:",
+      "   - name: ${2:echo}",
+      "     image: ${3:fedora}",
+      "     command:",
+      "      - ${4:echo}",
+      "     args:",
+      "      - 'hello world'",
+      "     $LINE_COMMENT env:"
+    ],
+    "description": "A Tektoncd Task definition"
+  },
+  "Tekton TaskRun": {
+    "prefix": ["taskrun", "tr"],
+    "body": [
+      "apiVersion: tekton.dev/v1alpha1",
+      "kind: TaskRun",
+      "metadata:",
+      "  name: ${1:echo-hello-world-run}",
+      "spec:",
+      "  taskRef:",
+      "    name: ${2: echo-hello-world}"
+    ],
+    "description": "A Tektoncd Task Run"
+  },
+  "Pipeline Resource": {
+    "prefix": ["pipeline-resource"],
+    "body": [
+      "apiVersion: tekton.dev/v1alpha1",
+      "kind: PipelineResource",
+      "metadata:",
+      "  name: ${1:git-source}",
+      "spec:",
+      "  type: ${2|git,image,pullRequest,cluster,storage|}",
+      "  params: ",
+      "  $LINE_COMMENT Check https://github.com/tektoncd/pipeline/blob/master/docs/resources.md#pipelineresources for more applicable parameters"
+    ],
+    "description": "Tekton Pipeline Resource"
+  },
+  "Pipeline": {
+    "prefix": ["pipeline", "p"],
+    "body": [
+      "apiVersion: tekton.dev/v1alpha1",
+      "kind: Pipeline",
+      "metadata:",
+      "  name: ${1:foo}",
+      "spec:",
+      "  $LINE_COMMENT Check https://github.com/tektoncd/pipeline/blob/master/docs/pipelines.md on how to define parameters",
+      "  $LINE_COMMENT params: ",
+      "  tasks: ",
+      "   - name: ${2:taskName}",
+      "     taskRef:",
+      "       name: ${2:build-and-push}",
+      "       $LINE_COMMENT params:"
+    ],
+    "description": "Tekton Pipeline Run"
+  },
+  "Pipeline run": {
+    "prefix": ["pipeline-run", "pr"],
+    "body": [
+      "apiVersion: tekton.dev/v1alpha1",
+      "kind: PipelineRun",
+      "metadata:",
+      "  name: ${1:foo-run}",
+      "spec:",
+      "  $LINE_COMMENT Check https://github.com/tektoncd/pipeline/blob/master/docs/pipelines.md on how to define parameters",
+      "  $LINE_COMMENT params: ",
+      "  pipelineRef: ",
+      "    name: ${2:foo}"
+    ],
+    "description": "Tekton Pipeline Run"
+  },
+  "Task Step": {
+    "prefix": ["task-step"],
+    "body": [
+      "- name: ${2:echo2}",
+      "  image: ${3:fedora}",
+      "  command:",
+      "   - ${4:echo2}",
+      "  args:",
+      "      - 'bye world'"
+    ],
+    "description": "Tekton Task Step"
+  },
+  "Param": {
+    "prefix": ["parameter"],
+    "body": ["- name: ${1:foo}", "  value: ${2:bar}"],
+    "description": "A generic Parameter used across any YAML that are key/value pair "
+  },
+  "Task Param": {
+    "prefix": ["task-parameter", "pipeline-parameter", "tparam", "pparam"],
+    "body": [
+      "- name: ${1:foo}",
+      "  value: ${2:bar}",
+      "  description: ${3:Paremeter Description}",
+      "  default: ${4:default value}"
+    ],
+    "description": "Tekton Task Parameter"
+  },
+  "Pipeline Task Reference": {
+    "prefix": ["pipeline-task", "task-reference"],
+    "body": [
+      "   - name: ${2:taskName}",
+      "     taskRef:",
+      "       name: ${2:build-and-push}",
+      "       $LINE_COMMENT params:"
+    ],
+    "description": "Tekton Pipeline Task Reference"
+  },
+  "Task Input": {
+    "prefix": ["task-input"],
+    "body": [
+      "  inputs:",
+      "   resources:",
+      "    - name: ${1:workspace}",
+      "      type: ${2|git,image,pullRequest,cluster,storage|}",
+      "  params:",
+      "   - name: ${3:name}",
+      "     value: ${4:value}",
+      "  outputs:",
+      "   resources:",
+      "    - name: ${5:builtImage}",
+      "      type: image"
+    ],
+    "description": "Tekton Task Task Inputs, Parameters and Output"
+  }
+}

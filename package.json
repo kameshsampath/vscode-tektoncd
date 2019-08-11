@@ -1,0 +1,66 @@
+{
+	"name": "vscode-tektoncd",
+	"displayName": "vscode-tektoncd",
+	"description": "vscode extension for https://tekton.dev",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.37.0"
+	},
+	"categories": [
+		"Snippets",
+    "Other"
+	],
+	"activationEvents": [
+    "onCommand:extension.helloWorld",
+    "onView:tektonTasksExplorer"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [{
+			"command": "extension.helloWorld",
+			"title": "Hello World"
+		}],
+		"snippets": [
+      {
+        "language": "yaml",
+        "path": "./snippets/tektoncd.json"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "package-explorer",
+          "icon": "images/tektoncd.png",
+          "title": "Tekton Explorer"
+        }
+      ]
+    },
+    "views": {
+      "package-explorer":[ {
+        "id": "tektonTasksExplorer",
+        "name": "Tekton Tasks Explorer"
+      }]
+    }
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile",
+		"test": "node ./out/test/runTest.js"
+  },
+  "extensionDependencies": [
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ],
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.37.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"tslint": "^5.12.1",
+		"vscode-test": "^1.0.2"
+	}
+}
