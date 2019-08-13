@@ -3,9 +3,9 @@
   "displayName": "vscode-tektoncd",
   "description": "vscode extension for https://tekton.dev",
   "version": "0.0.1",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.37.0"
+    "vscode": "^1.23.0"
   },
   "categories": [
     "Snippets",
@@ -16,16 +16,15 @@
     "onView:extension.vsKubernetesExplorer",
     "onCommand:clusters.openshift.useProject",
     "onCommand:openshift.explorer.switchContext",
-    "onView:tektonTasksExplorer"
+    "onCommand:tekton.pipelineresource.get",
+    "onCommand:tekton.pipelineresource.refresh",
+    "onView:tektonExplorer",
+    "onLanguage:yaml",
+    "onFileSystem:k8smsx"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
-      }
-    ],
+    "commands": [],
     "snippets": [
       {
         "language": "yaml",
@@ -44,14 +43,14 @@
     "views": {
       "tektonView": [
         {
-          "id": "extension.vsKubernetesExplorer",
-          "name": "Clusters"
-        },
-        {
-          "id": "tektonTasksExplorer",
-          "name": "Tekton Tasks Explorer"
+          "id": "tektonExplorer",
+          "name": "Pipelines"
         }
       ]
+    },
+    "menus": {
+      "view/title": [],
+      "view/item/context": []
     }
   },
   "scripts": {
@@ -71,12 +70,15 @@
     "@types/vscode": "^1.37.0",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
-    "typescript": "^3.3.1",
     "tslint": "^5.12.1",
+    "typescript": "^3.3.1",
     "vscode-test": "^1.0.2"
   },
   "dependencies": {
     "@kubernetes/client-node": "^0.10.2",
+    "@types/shelljs": "^0.8.5",
+    "js-yaml": "^3.13.1",
+    "shelljs": "^0.8.3",
     "vscode-kubernetes-tools-api": "1.0.0"
   }
 }
